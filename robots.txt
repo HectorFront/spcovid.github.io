@@ -2,4 +2,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: http://covidsp.github.io/sitemap.xml
+Sitemap: http://spcovid.github.io/sitemap.xml
