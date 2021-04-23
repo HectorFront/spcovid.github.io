@@ -1,0 +1,16 @@
+{
+    "short_name": "Coronavírus | Estado de São Paulo",
+    "name": "Diariamente, o Ministério da Saúde, por meio da Secretaria de Vigilância em Saúde (SVS/MS) divulga dados consolidados sobre o COVID-19 para todo o Brasil. Diante disso, nós disponibilizamos todos os dados do Estado de São Paulo para você ficar informado sobre sua região.",
+    "icons": [
+      {
+        "src": "favicon.ico",
+        "sizes": "64x64 32x32 24x24 16x16",
+        "type": "image/x-icon"
+      }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#ffff",
+    "background_color": "#ffffff"
+  }
+  
