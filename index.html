@@ -449,60 +449,58 @@
         </footer>
     </section>
 
+    <script src="./js/uf-states/uf.js"></script>
+    <script src="./js/uf-states/uf-lat-lng.js"></script>
+    <script src="./js/jquery/jquery.min.js"></script>
+    <script src="./js/events/limitcomment.js"></script>
+    <script src="./js/controller/rendercitys.js"></script>
+    <script src="./js/controller/analytics.js"></script>
+    <script src="./js/controller/searchcitys.js"></script>
+    <script src="./js/map/covidmap.js"></script>
+    <script src="./js/tools/darkmode.js"></script>
+    <script src="./js/tools/modals.js"></script>
+    <script>
+        const setStatesInput = () => {
+            let states = ``;
+            uf.map(stateUf => {
+                states +=
+                    stateUf.codigo_uf == 35 ?
+                    `<option value="${stateUf.codigo_uf}" selected>${stateUf.uf}</option>` :
+                    `<option value="${stateUf.codigo_uf}">${stateUf.uf}</option>`;
+            })
+            $('#state_search').html(states);
+        };
+        setStatesInput();
+    
+        $(window).scroll(() => {
+            $(window).scrollTop() == 0 ?
+                $("#animate_overflow-y").html('<i class="fas fa-arrow-down"></i>') :
+                $("#animate_overflow-y").html('<i class="fas fa-arrow-up"></i>');
+        });
+    
+        $("#animate_overflow-y").on("click", () => {
+            let positionScroll = $(window).scrollTop();
+            console.log(positionScroll);
+            if (positionScroll == 0) {
+                $("#animate_overflow-y").html('<i class="fas fa-arrow-down"></i>');
+                $("html, body").animate({
+                        scrollTop: $(document).height(),
+                    },
+                    500,
+                    "linear"
+                );
+            } else if (positionScroll > 0) {
+                $("#animate_overflow-y").html('<i class="fas fa-arrow-up"></i>');
+                $("html, body").animate({
+                        scrollTop: 0,
+                    },
+                    500,
+                    "linear"
+                );
+            }
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.js"></script>
+    <script src="./libs/fontawesome/js/all.js"></script>
 </body>
-
-<script src="./js/uf-states/uf.js"></script>
-<script src="./js/uf-states/uf-lat-lng.js"></script>
-<script src="./js/jquery/jquery.min.js"></script>
-<script src="./js/events/limitcomment.js"></script>
-<script src="./js/controller/rendercitys.js"></script>
-<script src="./js/controller/analytics.js"></script>
-<script src="./js/controller/searchcitys.js"></script>
-<script src="./js/map/covidmap.js"></script>
-<script src="./js/tools/darkmode.js"></script>
-<script src="./js/tools/modals.js"></script>
-<script>
-    const setStatesInput = () => {
-        let states = ``;
-        uf.map(stateUf => {
-            states +=
-                stateUf.codigo_uf == 35 ?
-                `<option value="${stateUf.codigo_uf}" selected>${stateUf.uf}</option>` :
-                `<option value="${stateUf.codigo_uf}">${stateUf.uf}</option>`;
-        })
-        $('#state_search').html(states);
-    };
-    setStatesInput();
-
-    $(window).scroll(() => {
-        $(window).scrollTop() == 0 ?
-            $("#animate_overflow-y").html('<i class="fas fa-arrow-down"></i>') :
-            $("#animate_overflow-y").html('<i class="fas fa-arrow-up"></i>');
-    });
-
-    $("#animate_overflow-y").on("click", () => {
-        let positionScroll = $(window).scrollTop();
-        console.log(positionScroll);
-        if (positionScroll == 0) {
-            $("#animate_overflow-y").html('<i class="fas fa-arrow-down"></i>');
-            $("html, body").animate({
-                    scrollTop: $(document).height(),
-                },
-                500,
-                "linear"
-            );
-        } else if (positionScroll > 0) {
-            $("#animate_overflow-y").html('<i class="fas fa-arrow-up"></i>');
-            $("html, body").animate({
-                    scrollTop: 0,
-                },
-                500,
-                "linear"
-            );
-        }
-    });
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.6.0/leaflet.js"></script>
-<script src="./libs/fontawesome/js/all.js"></script>
-
 </html>
