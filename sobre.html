@@ -269,7 +269,7 @@
 
     <script src="./js/jquery/jquery.min.js"></script>
     <script>
-        $.get('https://xx9p7hp1p7.execute-api.us-east-1.amazonaws.com/prod/PortalSintese')
+        $.get('https://xx9p7hp1p7.execute-api.us-east-1.amazonaws.com/prod/PortalSinteseSep')
             .done(sintese => {
                 $('#latest_update').html(`${sintese[0].dataFormat}/${new Date().getFullYear()}`);
             })
