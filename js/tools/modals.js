@@ -16,7 +16,7 @@ const modalNews =
 `<div class="modal__news">
     <div class="close"><i style="color: white; cursor: pointer; float: right;" onclick="noneNews()" class="fas fa-window-close"></i></div>
     <h1>Novidades ✍️</h1>
-    <p>25 de abril de 2021 19:30 - Versão 2.6.6</p>
+    <p>28 de abril de 2021 12:15 - Versão 2.6.6</p>
     <img style="border-radius: 10px;" src="./images/logo-appDark.png" width="100%" height="auto" alt="Coronavírus"/>
     <br/>
     <img style="border-radius: 10px;" src="./images/image_news.png" width="100%" height="auto" alt="Novidades"/>
