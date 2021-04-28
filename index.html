@@ -11,7 +11,7 @@
                 'gtm.start': new Date().getTime(),
                 event: 'gtm.js'
             });
-            var f = d.getElementsByTagName(s)[0],
+            let f = d.getElementsByTagName(s)[0],
                 j = d.createElement(s),
                 dl = l != 'dataLayer' ? '&l=' + l : '';
             j.async = true;
@@ -138,14 +138,19 @@
 
                 </select>
             </span>
-            <button class="button__all__citys" id="btn_all_citys">
-                <i class="fas fa-eye"></i>&nbsp;Visualizar todas cidades do estado de SP&nbsp;<i class="fas fa-flag-usa"></i>
-            </button>
+            <div id="container__btn__all__citys">
+                <button class="button__all__citys" id="btn_all_citys" onclick="setEventClickListAllCitys()">
+                    <i class="fas fa-flag-usa"></i>&nbsp;Visualizar Estado de São Paulo
+                </button>
+            </div>
         </div>
         <div class="cards__covid" id="list_cards">
             <!-- Cards a ser listados -->
         </div>
-
+        <div class="container__pagination">     
+            
+        </div>
+        <br/>
         <div id="message_view">
             <div class="loader__charts">
                 <div class="wrap">
@@ -158,7 +163,6 @@
                 <p>Carregando informações das cidades...</p>
             </div>
         </div>
-
         <div class="card__sobre">
             <div class="card_sobre__title">
                 <h1>
@@ -238,13 +242,15 @@
                     </div>
                     <p>Carregando informações...</p>
                 </div>
-                <canvas style="
-                  width: auto;
-                  max-width: 100%;
-                  max-height: auto;
-                  height: 400px;
-                  " id="chart_confirmados">
-                  </canvas>
+                <div id="container__graph__confirmados">
+                    <canvas style="
+                        width: auto;
+                        max-width: 100%;
+                        max-height: auto;
+                        height: 400px;
+                        " id="chart_confirmados">
+                    </canvas>
+                </div>
                 <p>Fonte: Secretarias Estaduais de Saúde. Brasil, 2020</p>
             </div>
             <div class="chart__box_chart">
@@ -259,12 +265,15 @@
                     </div>
                     <p>Carregando informações...</p>
                 </div>
-                <canvas style="
-                  width: auto;
-                  max-width: 100%;
-                  max-height: auto;
-                  height: 400px;
-                  " id="chart_mortes"></canvas>
+                <div id="container__graph__mortes">
+                    <canvas style="
+                        width: auto;
+                        max-width: 100%;
+                        max-height: auto;
+                        height: 400px;
+                        " id="chart_mortes">
+                    </canvas>
+                </div>
                 <p>Fonte: Secretarias Estaduais de Saúde. Brasil, 2020</p>
             </div>
         </section>
@@ -281,12 +290,15 @@
                     </div>
                     <p>Carregando informações...</p>
                 </div>
-                <canvas style="
-                width: auto;
-                max-width: 100%;
-                max-height: auto;
-                height: 400px;
-                " id="chart_brasil"></canvas>
+                <div id="container__graph__brasil">
+                    <canvas style="
+                        width: auto;
+                        max-width: 100%;
+                        max-height: auto;
+                        height: 400px;
+                        " id="chart_brasil">
+                    </canvas>
+                </div>
                 <p>Fonte: Secretarias Estaduais de Saúde. Brasil, 2020</p>
             </div>
             <div class="chart__box_chart">
@@ -301,13 +313,15 @@
                     </div>
                     <p>Carregando informações...</p>
                 </div>
-                <canvas style="
-                width: auto;
-                max-width: 100%;
-                max-height: auto;
-                height: 400px;
-                " id="chart_regionUf">  
-            </canvas>
+                <div id="container__graph__sintese">
+                    <canvas style="
+                        width: auto;
+                        max-width: 100%;
+                        max-height: auto;
+                        height: 400px;
+                        " id="chart_regionUf">  
+                    </canvas>
+                </div>
                 <p>Fonte: Secretarias Estaduais de Saúde. Brasil, 2020</p>
             </div>
         </section>
@@ -346,7 +360,7 @@
             <center>
                 <img src="./images/covidfooter.png" width="auto" height="120px" />
             </center>
-            <p>Versão v2.6.5</p>
+            <p>Versão v2.6.6</p>
             <!-- <strong id="latest_update"></strong> -->
             <p>Última atualização:&nbsp;<strong id="latest_update"></strong></p>
             <div class="foooter">
@@ -453,9 +467,9 @@
     <script src="./js/uf-states/uf-lat-lng.js"></script>
     <script src="./js/jquery/jquery.min.js"></script>
     <script src="./js/events/limitcomment.js"></script>
-    <script src="./js/controller/rendercitys.js"></script>
-    <script src="./js/controller/analytics.js"></script>
-    <script src="./js/controller/searchcitys.js"></script>
+    <script src="./js/main/rendercitys.js"></script>
+    <script src="./js/main/analytics.js"></script>
+    <script src="./js/main/searchcitys.js"></script>
     <script src="./js/map/covidmap.js"></script>
     <script src="./js/tools/darkmode.js"></script>
     <script src="./js/tools/modals.js"></script>
@@ -463,10 +477,7 @@
         const setStatesInput = () => {
             let states = ``;
             uf.map(stateUf => {
-                states +=
-                    stateUf.codigo_uf == 35 ?
-                    `<option value="${stateUf.codigo_uf}" selected>${stateUf.uf}</option>` :
-                    `<option value="${stateUf.codigo_uf}">${stateUf.uf}</option>`;
+                states += `<option value="${stateUf.codigo_uf}" ${stateUf.codigo_uf == 35 ? 'selected' : ''}>${stateUf.uf}</option>`;
             })
             $('#state_search').html(states);
         };
@@ -484,7 +495,7 @@
             if (positionScroll == 0) {
                 $("#animate_overflow-y").html('<i class="fas fa-arrow-down"></i>');
                 $("html, body").animate({
-                        scrollTop: $(document).height(),
+                        scrollTop: ($(document).height() - 3400),
                     },
                     500,
                     "linear"

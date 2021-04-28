@@ -1,40 +1,37 @@
-const renderCitys = (covidDataRegionCitys, allcitys, callback) => {
+const renderCitys = (covidDataRegionCitys, isListInitial, callback) => {
 
     const formatNumber = (value) => {
         return value.toLocaleString("pt-BR");
     };
 
-    covidDataRegionCitys.map((info) => {
+    covidDataRegionCitys.map(info => {
         let card = "";
         let cityName = info.nome;
         let estadoCodUF = info.cod.substr(0, 2);
 
-        if (allcitys) {
-            if (estadoCodUF == 35) {
-
+        if (!isListInitial && estadoCodUF == 35) {
                 card += `
-                <div ${localStorage.getItem('dark') == 1 ? 'style="background-color: #202020;"' : 'style="background-color: #FFFFFF"'} class="card__covid" id="city_${info.cod}">
-                    <div class="card__title">
-                        <h1 ${localStorage.getItem('dark') == 1 ? 'style="color: rgb(240, 240, 240)"' : 'style="color: #000000"'}>${info.nome}&nbsp;<i style="color: #8498ae; font-size: 18px;" class="fas fa-map-marker-alt"></i></h1>
-                    </div>
-                    <div class="card__content">
-                        <div class="card_column__info">
-                            <h1 ${localStorage.getItem('dark') == 1 ? 'style="color: rgb(240, 240, 240)"' : 'style="color: #000000"'}>${formatNumber(Number(info.casosAcumulado))}</h1>
-                            <p ${localStorage.getItem('dark') == 1 ? 'style="color: rgb(240, 240, 240)"' : 'style="color: #000000"'}>Casos confirmados</p>
+                    <div ${localStorage.getItem('dark') == 1 ? 'style="background-color: #202020;"' : 'style="background-color: #FFFFFF"'} class="card__covid" id="city_${info.cod}">
+                        <div class="card__title">
+                            <h1 ${localStorage.getItem('dark') == 1 ? 'style="color: rgb(240, 240, 240)"' : 'style="color: #000000"'}>${info.nome}&nbsp;<i style="color: #8498ae; font-size: 18px;" class="fas fa-map-marker-alt"></i></h1>
                         </div>
-                        <div class="card_column__info">
-                            <h1 ${localStorage.getItem('dark') == 1 ? 'style="color: rgb(240, 240, 240)"' : 'style="color: #000000"'}>${formatNumber(Number(info.obitosAcumulado))}</h1>
-                            <p ${localStorage.getItem('dark') == 1 ? 'style="color: rgb(240, 240, 240)"' : 'style="color: #000000"'}>Óbitos</p>
+                        <div class="card__content">
+                            <div class="card_column__info">
+                                <h1 ${localStorage.getItem('dark') == 1 ? 'style="color: rgb(240, 240, 240)"' : 'style="color: #000000"'}>${formatNumber(Number(info.casosAcumulado))}</h1>
+                                <p ${localStorage.getItem('dark') == 1 ? 'style="color: rgb(240, 240, 240)"' : 'style="color: #000000"'}>Casos confirmados</p>
+                            </div>
+                            <div class="card_column__info">
+                                <h1 ${localStorage.getItem('dark') == 1 ? 'style="color: rgb(240, 240, 240)"' : 'style="color: #000000"'}>${formatNumber(Number(info.obitosAcumulado))}</h1>
+                                <p ${localStorage.getItem('dark') == 1 ? 'style="color: rgb(240, 240, 240)"' : 'style="color: #000000"'}>Óbitos</p>
+                            </div>
+                            <div class="card_column__info">
+                                <h1 ${localStorage.getItem('dark') == 1 ? 'style="color: rgb(240, 240, 240)"' : 'style="color: #000000"'}>São Paulo</h1>
+                                <p ${localStorage.getItem('dark') == 1 ? 'style="color: rgb(240, 240, 240)"' : 'style="color: #000000"'}>Estado</p>
+                            </div>
                         </div>
-                        <div class="card_column__info">
-                            <h1 ${localStorage.getItem('dark') == 1 ? 'style="color: rgb(240, 240, 240)"' : 'style="color: #000000"'}>São Paulo</h1>
-                            <p ${localStorage.getItem('dark') == 1 ? 'style="color: rgb(240, 240, 240)"' : 'style="color: #000000"'}>Estado</p>
-                        </div>
-                    </div>
-                </div>`;
-
+                    </div>`;
+                
                 callback(card, info);
-            }
         } else {
             if (cityName === "Garça" && estadoCodUF == 35 ||
                 cityName === "Marília" && estadoCodUF == 35 ||
@@ -78,4 +75,4 @@ const renderCitys = (covidDataRegionCitys, allcitys, callback) => {
             }
         }
     });
-}
+};

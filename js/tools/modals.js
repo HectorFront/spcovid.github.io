@@ -14,36 +14,41 @@ const modalProfile =
 
 const modalNews =
 `<div class="modal__news">
-    <div class="close"><i style="color: white; cursor: pointer; right: 25; position: absolute;" onclick="noneNews()" class="fas fa-window-close"></i></div>
+    <div class="close"><i style="color: white; cursor: pointer; float: right;" onclick="noneNews()" class="fas fa-window-close"></i></div>
     <h1>Novidades ✍️</h1>
-    <p>23 de abril de 2021 - Versão 2.6.5</p>
+    <p>25 de abril de 2021 19:30 - Versão 2.6.6</p>
     <img style="border-radius: 10px;" src="./images/logo-appDark.png" width="100%" height="auto" alt="Coronavírus"/>
     <br/>
     <img style="border-radius: 10px;" src="./images/image_news.png" width="100%" height="auto" alt="Novidades"/>
     <span>Nós passamos trabalhando funcionalidades que já existiam. Às vezes, as pequenas melhorias não recebem a atenção que merecem. Desta vez, nós tiramos um tempo para trabalhar no maior número possível destas pequenas mudanças, sendo elas a visualização dos dados das pequenas e grandes cidades.</span>
     <span class="line__news">🙂 O que foi atualizado?</span>
-    <ul>
-        <li>✅ <b style="font-weight: bold;">Listagem de cidades.</b> Melhoramos nessa questão a velocidade de listagem de todas as cidades do estado de SP.</li>
-        <li>✅ <b style="font-weight: bold;">Casos confirmados e óbitos nos gráficos.</b> Antes os gráficos não listavam todas cidades do estado de SP, agora fizemos que a mesma opção de listar todas elas, automaticamente fizesse a ação de atualizar nos gráficos também em tempo real.</li>
+    <ul style="padding-bottom: 20px;">
+        <li>✅ <b style="font-weight: bold;">Mostragem de dados antigos ao passar mouse no gráfico.</b> Corrigimos este bug que era bastante recorrente ao listar todas as cidades e também quando se alterava o modo de visualização para Modo escuro ou claro.</li>
+        <li>✅ <b style="font-weight: bold;">Listagem de cidades.</b> Melhoramos nessa questão a flexibilidade e velocidade na visualização da listagem de todas as cidades do estado de SP.</li>
+        <li>✅ <b style="font-weight: bold;">Casos confirmados e óbitos nos gráficos.</b> Antes os gráficos não listavam todas cidades do estado de SP, agora fizemos com que a mesma opção de listar todas elas, automaticamente fizesse a ação de atualizar nos gráficos também em tempo real.</li>
         <li>✅ <b style="font-weight: bold;">Ajustes de visualização para qualquer dispositivo.</b> Fizemos alguns ajustes para que você possa acessar essa página da web no seu dispositivo em qualquer lugar a qualquer momento.</li>
     </ul>
 </div>`;
 
 const showContact = () => {
     $('.modal').html(modalProfile);
+    document.documentElement.style.overflowY = 'hidden';
 };
 
 const showNewsVersion = () => {
     if(localStorage.getItem('news') != 1) {
         $('.modal').html(modalNews);
+        document.documentElement.style.overflowY = 'hidden';
     }
 };
 
 const setViewNews = () => {
     $('.modal').html(modalNews);
+    document.documentElement.style.overflowY = 'hidden';
 };
 
 const noneContact = () => {
+    document.documentElement.style.overflowY = 'scroll';
     $('.modal__contact').fadeOut('slow');
     setTimeout(()=>{
         $('.modal').html('');
@@ -51,6 +56,7 @@ const noneContact = () => {
 };
 
 const noneNews = () => {
+    document.documentElement.style.overflowY = 'scroll';
     $('.modal__news').fadeOut('slow');
     localStorage.setItem('news', 1);
     setTimeout(()=>{

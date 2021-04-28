@@ -25,6 +25,11 @@ const modeDark = () => {
     $('.card__covid').css('background-color', '#202020');
     $('.card__covid h1').css('color', 'rgb(240, 240, 240)');
     $('.card__covid p').css('color', 'rgb(240, 240, 240)');
+    resetCharts('chart_confirmados', 'container__graph__confirmados');
+    resetCharts('chart_mortes', 'container__graph__mortes');
+    resetCharts('chart_brasil', 'container__graph__brasil');
+    resetCharts('chart_regionUf', 'container__graph__sintese');
+    renderCharts();
 };
 
 const modeDefault = () => {
@@ -53,6 +58,11 @@ const modeDefault = () => {
     $('.card__covid').css('background-color', '#FFFFFF');
     $('.card__covid h1').css('color', '#000000');
     $('.card__covid p').css('color', '#000000');
+    resetCharts('chart_confirmados', 'container__graph__confirmados');
+    resetCharts('chart_mortes', 'container__graph__mortes');
+    resetCharts('chart_brasil', 'container__graph__brasil');
+    resetCharts('chart_regionUf', 'container__graph__sintese');
+    renderCharts();
 };
 
 if (booleanDarkMode == 1) {

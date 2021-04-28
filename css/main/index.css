@@ -136,7 +136,7 @@ body {
 
 .modal__news {
     z-index: 1000;
-    margin: 0 6px 0 1px;
+    margin: 0 10px;
     position: fixed;
     max-width: 380px;
     overflow: hidden;
@@ -144,10 +144,24 @@ body {
     max-height: 85vh;
     padding: 20px 30px;
     border-radius: 10px;
-    background-color: #090e12;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
     display: flex;
     flex-direction: column;
-    border-bottom: 19px solid #3f9adf;
+    background-color: #090e12;
+    border-bottom: 19px solid #1e9c7d;
+}
+
+.modal__news::-webkit-scrollbar {
+    width: 3px;
+    background-color: #090e12 !important;
+}
+.modal__news::-webkit-scrollbar-track {
+    background-color: #090e12 !important;
+}
+
+.modal__news::-webkit-scrollbar-thumb {
+    background-color: rgb(30 156 125);
 }
 
 .modal__news h1 {
@@ -199,7 +213,7 @@ body {
 
 .modal__contact {
     z-index: 1000;
-    margin: 0 6px 0 1px;
+    margin: 0 10px;
     position: fixed;
     height: 550px;
     max-width: 450px;
@@ -287,10 +301,12 @@ body {
     height: 100% !important;
     width: 100% !important;
     border-radius: 50px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
     padding: 35px 0 0 0;
-    -webkit-box-shadow: 0px -26px 39px -1px rgba(34, 34, 34, 0.596);
-    -moz-box-shadow: 0px -26px 39px -1px rgba(34, 34, 34, 0.596);
-    box-shadow: 0px -26px 39px -1px rgba(34, 34, 34, 0.596);
+    -webkit-box-shadow: 0px -48px 60px -23px rgb(34 34 34 / 60%);;
+    -moz-box-shadow: 0px -48px 60px -23px rgb(34 34 34 / 60%);;
+    box-shadow: 0px -48px 60px -23px rgb(34 34 34 / 60%);;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -678,6 +694,49 @@ body {
     border-top-right-radius: 8px;
 }
 
+.container__pagination {
+    display: none;
+    width: 100%; 
+    padding: 15px 40px;
+    padding-bottom: 0;
+}
+
+.btn__pagination {
+    text-align: justify;
+    line-height: 25px;
+    margin: 0;
+    margin-bottom: 10px;
+    height: auto;
+    padding: 10px 20px;
+    font-size: 17px;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    border: 0;
+    background-color: #1e9c7d;
+}
+
+.btn__pagination:hover {
+    background-color: #1da583;
+}
+
+.btn__pagination:disabled {
+    cursor: no-drop;
+    background-color: gray;
+}
+
+.btn__pagination:disabled:hover {
+    background-color: rgb(98, 98, 98);
+}
+
+#message_view {
+    width: 100%;
+    display: flex;
+    padding: 0 20px;
+    align-items: center;
+    justify-content: center;
+}
+
 .card__sobre {
     margin: 30px 30px;
     display: flex;
@@ -688,10 +747,10 @@ body {
     width: 100%;
     cursor: pointer;
     background-color: #1da584;
-    box-shadow: 0px 0 10px 7px rgba(33, 43, 54, 0.04);
     border-radius: 8px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+    box-shadow: 0px 0 10px 7px rgba(33, 43, 54, 0.04);
 }
 
 .card__sobre:hover {
@@ -747,13 +806,14 @@ body {
 }
 
 .card__title>h1 {
-    border-left: 6px solid #1da584;
-    border-radius: 5px;
-    height: 5px;
-    padding: 20px;
+    border-left: 3px solid #1da584;
+    border-radius: 2px;
+    height: auto;
+    padding: 5px;
     font-family: CardTitle;
     font-weight: 500;
     font-size: 25px;
+    padding-left: 20px;
 }
 
 .card_sobre__content {
@@ -944,7 +1004,8 @@ h2 {
 
 
 .copyright__footer{
-    text-align: justify;
+    width: 100%;
+    text-align: center;
     font-size: 14px;
 }
 
@@ -1066,8 +1127,17 @@ h2 {
 
 @media (max-width: 600px) {
     .content__main>.cards__covid {
-        margin: 0 20px 0 20px;
+        margin: 0 20px;
     }
+    .container__pagination {
+        padding: 15px 20px;
+    }
+    .card__sobre {
+        margin: 30px 20px;
+    }
+    .card__covid_brasil {
+        margin: 10px 20px;
+    } 
 }
 
 @media (max-width: 365px) {
