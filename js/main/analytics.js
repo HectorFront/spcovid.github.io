@@ -319,7 +319,7 @@ function dataCovid() {
         resetCharts('chart_regionUf', 'container__graph__sintese');
     }
 
-    function pushInformationsCitys(card, info, isListInitial) {
+    function pushInformationsCitys(card, info, isListInitial, isAllCitys) {
         $("#list_cards").append(card);
         labelsCityConfirmed.push(info.nome);
         labelsCityObito.push(info.nome);
@@ -327,6 +327,19 @@ function dataCovid() {
         dataObito.push(info.obitosAcumulado);
         if(!isListInitial) {
             renderCharts();
+        }
+        $('#message_view').html(
+            `<p style="color: #8498ae; font-family: CardTitle; font-weight: 500; text-align: center; line-height: 22px;">
+                Mostrando de 1 até ${$('.card__covid').length} de ${dataCovidCitysSP.length} cidades do Estado de SP
+            </p>`
+        );
+        if(isAllCitys) {
+            $('html,body').scrollTop( ($(".container__pagination").offset().top) - 150);
+        }
+        if(isAllCitys && $(".card__covid").length == dataCovidCitysSP.length) {
+            resetAllCharts();
+            renderCharts();
+            $('.all__pagination').html('<i class="fa fa-th"></i><b style="font-weight: bold;">&nbsp;Ver todas</b>');
         }
     }
 
@@ -345,7 +358,7 @@ function dataCovid() {
         setTimeout(() => {
             $("#list_cards").html('');
             clearListCitys();
-            listDataRegion(dataCovidCitysSP, true);
+            listDataRegion(dataCovidCitysSP, true, false);
             $('#container__btn__all__citys').html(
                 `<button class="button__all__citys" id="btn_all_citys" onclick="setEventClickListAllCitys()">
                     <i class="fas fa-flag-usa"></i>&nbsp;Visualizar Estado de São Paulo
@@ -367,9 +380,9 @@ function dataCovid() {
             dataAllCitys();
             $('.container__pagination').css('display', 'block');
             $('.container__pagination').append(
-                `<button class="btn__pagination anterior__pagination" onclick="subPagination()" disabled><i class="fa fa-minus"></i><b style="font-weight: bold;">&nbsp;12<b/></button>
-                 <button class="btn__pagination proximo__pagination" onclick="setPagination(false)"><i class="fa fa-plus"></i><b style="font-weight: bold;">&nbsp;12</b></button>
-                 <button class="btn__pagination all__pagination" onclick="setPagination(true)"><i class="fa fa-th"></i><b style="font-weight: bold;">&nbsp;Ver todas</b></button>`
+                `<button title="-12 cidades" class="btn__pagination anterior__pagination" onclick="subPagination()" disabled><i class="fa fa-minus"></i><b style="font-weight: bold;">&nbsp;12<b/></button>
+                 <button title="+12 cidades" class="btn__pagination proximo__pagination" onclick="setPagination(false)"><i class="fa fa-plus"></i><b style="font-weight: bold;">&nbsp;12</b></button>
+                 <button title="Todas as cidades" class="btn__pagination all__pagination" onclick="setPagination(true)"><i class="fa fa-th"></i><b style="font-weight: bold;">&nbsp;Ver todas</b></button>`
             );
             $('#container__btn__all__citys').html(
                 `<button class="button__all__citys" id="btn_all_citys" onclick="setEventClickListDefaultCitys()">
@@ -383,7 +396,10 @@ function dataCovid() {
     setPagination = function(isListAllTable) {
         if(isListAllTable) {
             clearListCitys();
+            isListAllCitys = true;
             $("#list_cards").html('');
+        } else {
+            isListAllCitys = false;
         }
 
         let newPagination = paginate(
@@ -419,11 +435,12 @@ function dataCovid() {
             $(".anterior__pagination").prop("disabled", true);
         }
 
-        listDataRegion(newPagination, false);
+        listDataRegion(newPagination, false, isListAllTable);
         if(isListAllTable) {
             $(".all__pagination").prop("disabled", true);
             $(".proximo__pagination").prop("disabled", true);
             $(".anterior__pagination").prop("disabled", false);
+            $(".all__pagination").html('<i class="fa fa-redo fa-spin"></i><b style="font-weight: bold;">&nbsp;Ver todas</b>')
         }
         $('html,body').animate({
             scrollTop: ($(".container__pagination").offset().top) - 150 
@@ -487,11 +504,16 @@ function dataCovid() {
         -100}, 'fast');
     };
 
-    listDataRegion = function(covidData, isListInitial) {
+    listDataRegion = function(covidData, isListInitial, isListAllTable) {
         renderCitys(covidData, isListInitial, (card, info) => {
             resetAllCharts();
-            pushInformationsCitys(card, info, isListInitial);
-
+            if(isListAllTable) {
+                setTimeout(() => {
+                    pushInformationsCitys(card, info, isListInitial, true);
+                }, 6500);
+            } else {
+                pushInformationsCitys(card, info, isListInitial, false);
+            }
             $('#message_view').html(
                 `<p style="color: #8498ae; font-family: CardTitle; font-weight: 500; text-align: center; line-height: 22px;">
                     ${isListInitial 
@@ -532,7 +554,7 @@ function dataCovid() {
         clearListCitys();
         let initialPagination = paginate([...dataCovidCitysSP], indexPagination, indexPagination+12);
         indexPagination+=12;
-        listDataRegion(initialPagination, false);
+        listDataRegion(initialPagination, false, false);
     }
 
     function listDataTotal(res) {
@@ -563,7 +585,7 @@ function dataCovid() {
                     dataCovidCitysSP.push(info);
                 }
             });
-            listDataRegion(Region, true);
+            listDataRegion(Region, true, false);
         })
         .fail(() => {
             console.log({ error: 'error request PortalMunicipio' });
