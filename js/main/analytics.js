@@ -1,23 +1,25 @@
-let setPagination,
-    paginate,
-    colorChart,
-    Brasil = [],
-    resetCharts,
-    renderCharts,
-    subPagination,
-    resetAllCharts,
-    dataObito = [],
-    listDataRegion,
-    dataSintese = [],
-    dataConfirmed = [],
-    indexPagination = 0,
-    isStateAllSP = false,
-    labelsSinteseUf = [],
-    labelsCityObito = [],
-    dataCovidCitysSP = [],
-    labelsCityConfirmed = [],
-    setEventClickListAllCitys,
-    setEventClickListDefaultCitys;
+let setPagination;
+let subPagination;
+let setEventClickListAllCitys;
+let setEventClickListDefaultCitys;
+
+let paginate;
+let colorChart;
+let resetCharts;
+let renderCharts;
+let resetAllCharts;
+let listDataRegion;
+let indexPagination = 0;
+let isStateAllSP = false;
+
+let Brasil = [];
+let dataObito = [];
+let dataSintese = [];
+let dataConfirmed = [];
+let labelsSinteseUf = [];
+let labelsCityObito = [];
+let dataCovidCitysSP = [];
+let labelsCityConfirmed = [];
 
 const messageNotChart = `
 <div class="message">
@@ -27,8 +29,8 @@ const messageNotChart = `
         no momento, nós já estamos buscando resolver! <i class="far fa-smile-wink"></i> Agradeço sua
         compreensão.
     </p>
-</div>`,
-loadingCitys =
+</div>`;
+const loadingCitys =
 `<div class="loading">	
     <div class="circle"></div>
     <div class="circle"></div>
@@ -46,7 +48,7 @@ function dataCovid() {
             data: {
                 datasets: [{
                     label: !isStateAllSP ? "Interior de SP" : "Estado de SP",
-                    data: dataConfirmed.length ? dataConfirmed : [],
+                    data: dataConfirmed ?? [],
                     borderColor: "#0bbb8f",
                     borderWidth: "3",
                     hoverBorderColor: "#000",
@@ -100,7 +102,7 @@ function dataCovid() {
             data: {
                 datasets: [{
                     label: !isStateAllSP ? "Interior de SP" : "Estado de SP",
-                    data: dataObito.length ? dataObito : [],
+                    data: dataObito ?? [],
                     borderColor: "#e75050",
                     borderWidth: "3",
                     hoverBorderColor: "#000",
@@ -154,8 +156,8 @@ function dataCovid() {
                 labels: ['Infectados', 'Óbitos'],
                 datasets: [{
                     data: [
-                        dataSintese.length ? dataSintese[2].casosAcumulado : [],
-                        dataSintese.length ? dataSintese[2].obitosAcumulado : []
+                        dataSintese[2]?.casosAcumulado,
+                        dataSintese[2]?.obitosAcumulado
                     ],
                     label: "BR",
                     backgroundColor: "#9a36bb",
@@ -208,8 +210,8 @@ function dataCovid() {
                 labels: ['Infectados', 'Óbitos'],
                 datasets: [{
                     data: [
-                        dataSintese[0] ? dataSintese[0].casosAcumulado : [],
-                        dataSintese[0] ? dataSintese[0].obitosAcumulado : []
+                        dataSintese[0]?.casosAcumulado,
+                        dataSintese[0]?.obitosAcumulado
                     ],
                     label: "Centro-Oeste",
                     backgroundColor: "#cf5c189d",
@@ -217,8 +219,8 @@ function dataCovid() {
                     fill: false
                 }, {
                     data: [
-                        dataSintese[1] ? dataSintese[0].casosAcumulado : [],
-                        dataSintese[1] ? dataSintese[0].obitosAcumulado : [],
+                        dataSintese[1]?.casosAcumulado,
+                        dataSintese[1]?.obitosAcumulado,
                     ],
                     label: "Sul",
                     backgroundColor: "#8e5ea28e",
@@ -226,8 +228,8 @@ function dataCovid() {
                     fill: false
                 }, {
                     data: [
-                        dataSintese[2] ? dataSintese[0].casosAcumulado : [],
-                        dataSintese[2] ? dataSintese[0].obitosAcumulado : [],
+                        dataSintese[2]?.casosAcumulado,
+                        dataSintese[2]?.obitosAcumulado,
                     ],
                     label: "Norte",
                     backgroundColor: "#ecdd0e9f",
@@ -235,8 +237,8 @@ function dataCovid() {
                     fill: false
                 }, {
                     data: [
-                        dataSintese[4] ? dataSintese[0].casosAcumulado : [],
-                        dataSintese[4] ? dataSintese[0].obitosAcumulado : [],
+                        dataSintese[4]?.casosAcumulado,
+                        dataSintese[4]?.obitosAcumulado,
                     ],
                     label: "Nordeste",
                     backgroundColor: "#3cba9fd0",
@@ -244,8 +246,8 @@ function dataCovid() {
                     fill: false
                 }, {
                     data: [
-                        dataSintese[5] ? dataSintese[0].casosAcumulado : [],
-                        dataSintese[5] ? dataSintese[0].obitosAcumulado : [],
+                        dataSintese[5]?.casosAcumulado,
+                        dataSintese[5]?.obitosAcumulado,
                     ],
                     label: "Sudeste",
                     backgroundColor: "#630eec91",
@@ -453,8 +455,8 @@ function dataCovid() {
         }
         clearListCitys();
 
-        let cardsCovid = document.querySelectorAll('.card__covid'), indexMain = indexPagination == 33 ? 9 : 12;
-        
+        let cardsCovid = document.querySelectorAll('.card__covid');
+        let indexMain = indexPagination == 33 ? 9 : 12;
         $(".card__covid").each(index => {
             if(index >= $(".card__covid").length - indexMain) {
                 cardsCovid[index].parentNode.removeChild(cardsCovid[index]);
