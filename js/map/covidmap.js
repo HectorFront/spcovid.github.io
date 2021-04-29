@@ -49,10 +49,10 @@ const setViewMap = () => {
                 let icon = L.icon({
                     iconUrl:
                     info.obitosAcumulado < 100
-                    ? 'https://covidregional.github.io/images/markerLeve.png'
+                    ? 'https://spcovid.github.io/images/markerLeve.png'
                     : info.obitosAcumulado > 900
-                    ?  'https://covidregional.github.io/images/marker.png'
-                    : 'https://covidregional.github.io/images/markerMed.png',
+                    ?  'https://spcovid.github.io/images/marker.png'
+                    : 'https://spcovid.github.io/images/markerMed.png',
                     iconSize: [50, 50],
                 });
 
