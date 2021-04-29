@@ -16,35 +16,13 @@ const setViewMap = () => {
             L.control.scale().addTo(map);
 
             dataUf.map(info => {
-
-                let LatLngStates =
-                    info.nome === 'SP' && ufLatLng.SP ||
-                    info.nome === 'RJ' && ufLatLng.RJ ||
-                    info.nome === 'CE' && ufLatLng.CE ||
-                    info.nome === 'AM' && ufLatLng.AM ||
-                    info.nome === 'PA' && ufLatLng.PA ||
-                    info.nome === 'PE' && ufLatLng.PE ||
-                    info.nome === 'MA' && ufLatLng.MA ||
-                    info.nome === 'BA' && ufLatLng.BA ||
-                    info.nome === 'ES' && ufLatLng.BA ||
-                    info.nome === 'PB' && ufLatLng.PB ||
-                    info.nome === 'MG' && ufLatLng.MG ||
-                    info.nome === 'DF' && ufLatLng.DF ||
-                    info.nome === 'RS' && ufLatLng.RS ||
-                    info.nome === 'AP' && ufLatLng.AP ||
-                    info.nome === 'AL' && ufLatLng.AL ||
-                    info.nome === 'SC' && ufLatLng.SC ||
-                    info.nome === 'SE' && ufLatLng.SE ||
-                    info.nome === 'RN' && ufLatLng.RN ||
-                    info.nome === 'AC' && ufLatLng.AC ||
-                    info.nome === 'RO' && ufLatLng.RO ||
-                    info.nome === 'PI' && ufLatLng.PI ||
-                    info.nome === 'PR' && ufLatLng.PR ||
-                    info.nome === 'TO' && ufLatLng.TO ||
-                    info.nome === 'GO' && ufLatLng.GO ||
-                    info.nome === 'RR' && ufLatLng.RR ||
-                    info.nome === 'MT' && ufLatLng.MT ||
-                    info.nome === 'MS' && ufLatLng.MS;
+                
+                let latLngStates;
+                for(state in ufLatLng) {
+                    if(info.nome === state) {
+                        latLngStates = ufLatLng[state];
+                    }
+                }
 
                 let icon = L.icon({
                     iconUrl:
@@ -56,7 +34,7 @@ const setViewMap = () => {
                     iconSize: [50, 50],
                 });
 
-                let marker = L.marker(LatLngStates, { icon: icon }).addTo(map)
+                let marker = L.marker(latLngStates, { icon: icon }).addTo(map)
                     .bindPopup(
                     `<b style='font-weight: 900;'>Estado / ${info.nome}</b>
                         <p><b>Situação</b> ${info.obitosAcumulado < 100 &&
