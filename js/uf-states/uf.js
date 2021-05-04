@@ -133,4 +133,4 @@ const uf = [{
         "uf": "DF",
         "nome": "Distrito Federal",
     }
-]
+];
